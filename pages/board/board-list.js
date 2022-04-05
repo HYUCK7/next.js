@@ -17,7 +17,7 @@ export default function TeamForm(){
             alert(`등록할 팀 정보 : ${JSON.stringify(inputs)}`)
             axios.post('http://localhost:5000/api/Team/write', inputs) 
             .then(res=> {
-                alert(res.data)
+                alert(JSON.stringify( res.data.result))
             })
             .catch(err => alert(err))
         }
