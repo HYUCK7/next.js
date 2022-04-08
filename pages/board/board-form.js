@@ -4,7 +4,6 @@ import axios from 'axios';
 
 export default function BoardhtmlForm(){
     const [inputs, setInputs] = useState({})
-    const {passengerId, name,  teamId, subject} = inputs
 
     const onChange = (e) => {
         e.preventDefault()
@@ -12,12 +11,12 @@ export default function BoardhtmlForm(){
         setInputs({ ...inputs, [name]: value})
     }
 
-    const onClick = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault()
         alert(`등록할 팀 정보 : ${JSON.stringify(inputs)}`)
             axios.post('http://localhost:5000/api/board/write', inputs) 
             .then(res=> {
-                alert(JSON.stringify( res.data.result))
+                alert(JSON.stringify( res.data ))
             })
             .catch(err => alert(err))
     }
@@ -25,7 +24,7 @@ export default function BoardhtmlForm(){
     return (<>
         <h1>게시글 등록</h1>
         <div className={style.container}>
-            <htmlForm action="">
+            <form action="" onSubmit={onSubmit}>
             <div className={style.row}>
                 <div className={style.col25}>
                 <label className={style.label} htmlFor="passengerId">PassengerId</label>
@@ -69,7 +68,7 @@ export default function BoardhtmlForm(){
                 <input type="submit" className={style.inputSubmit} onClick = {onClick}
                 value="Submit"/>
             </div>
-            </htmlForm>
+            </form>
             </div>
     </>)
 }
