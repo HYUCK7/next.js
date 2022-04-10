@@ -5,7 +5,7 @@ import tablestyles from "../common/styles/userList.module.css"
 
 const Table = ({columns, colspan, data}) => {
     return(
-        <table className={tablestyles.table}>
+        <table className = {tablestyles.table}>
           <thead>
             <tr className={tablestyles.tr}>
               {columns.map((column) => (

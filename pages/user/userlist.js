@@ -18,7 +18,13 @@ const Table = ({columns, colspan, data}) => {
           </tr>
           : data.map((user) => (
             <tr className = {tableStyles.tr} key = {user.id}>
-              <td className={tableStyles.td}>{user.id}</td>
+              <td className={tableStyles.td}>
+                <Link href={{pathname:`/user/[username]`,
+                query:{selectedUser: 'test'}}} as = {`/user/${user.id}`}>
+                  <a>{user.id}</a>
+                </Link>
+              
+              </td>
               <td className={tableStyles.td}>{user.password}</td>
               <td className={tableStyles.td}>{user.name}</td>
               <td className={tableStyles.td}>{user.tel}</td>
@@ -32,7 +38,7 @@ const Table = ({columns, colspan, data}) => {
 export default function userList(){
   const columns = ["id", "password", "name", "tel"];
   const [data, setData] = useState([])
-  const count = data.length
+  
   useEffect(()=>{
     axios.get('http://localhost:5000/api/user/userlist').then(res=>{
       setData(res.data.users)
@@ -40,7 +46,6 @@ export default function userList(){
   }, [])
   return (<>
       <h1>사용자 목록</h1>
-      {count!=0 && <h3>회원수 : {count} 명 </h3>}
       <div className={tableStyles.td}>
       <Table columns={columns} colspan = {4} data = {data}/>
       </div>
