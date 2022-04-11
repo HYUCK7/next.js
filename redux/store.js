@@ -1,15 +1,20 @@
-import {createStore} from 'redux'
-import { createWrapper, HYDRATE} from 'next-redux-wrapper'
+import { configureStore } from "@reduxjs/toolkit";
+import createSagaMiddleware from "@redux-saga/core";
+import { rootSaga } from './sagas'
+import rootReducer from './reducers'
+import { createWrapper } from "next-redux-wrapper";
 
-const reducer = (state, action) => {
-    switch (action.type){
-        case HYDRATE:
-            return {...state, ...action.payload}
-        default:
-            return state
-    }
+const sagaMiddleware = createSagaMiddleware()
+
+export const createStore = () =>{
+    const store = configureStore({
+        reducer :rootReducer,
+        devTools : true,
+        middleware : [sagaMiddleware]
+    })
+    sagaMiddleware.run(rootSaga)
+    return store
 }
 
-const makeStore = context => createStore(reducer)
-
-export const wrapper = createWrapper(makeStore, {debug : true})
+export const wrapper = createWrapper(createStore,
+    {debug: process.env.NODE_ENV !== 'production'})

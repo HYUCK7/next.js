@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import tableStyles from "../common/styles/userList.module.css"
+import Link from 'next/link'
 
 const Table = ({columns, colspan, data}) => {
   
@@ -14,13 +15,13 @@ const Table = ({columns, colspan, data}) => {
         </tr>
       </thead>
       <tbody>
-          { data.length == 0 ? <tr className={tableStyles.tr}> <td colSpan={colspan} className={tableStyles.td}>데이터가 없습니다.</td>
+          { data.length == 0 ? <tr className={tableStyles.tr}> <td colSpan={colspan} className={tableStyles.td}>데이터가없습니다.</td>
           </tr>
           : data.map((user) => (
-            <tr className = {tableStyles.tr} key = {user.id}>
+            <tr className = {tableStyles.tr} key = {user._id}>
               <td className={tableStyles.td}>
-                <Link href={{pathname:`/user/[username]`,
-                query:{selectedUser: 'test'}}} as = {`/user/${user.id}`}>
+                <Link href={{pathname:`/user/[id]`,
+                  query:{selectedUser: 'test'}}} as = {`/user/${user.id}`}>
                   <a>{user.id}</a>
                 </Link>
               </td>
@@ -34,7 +35,7 @@ const Table = ({columns, colspan, data}) => {
   );
   }
 
-export default function userList(){
+export default function UserList(){
   const columns = ["id", "password", "name", "tel"];
   const [data, setData] = useState([])
   
@@ -45,7 +46,7 @@ export default function userList(){
   }, [])
 
   return (<>
-      <h1>사용자 목록</h1>
+      <h1>사용자목록</h1>
       <div className={tableStyles.td}>
       <Table columns={columns} colspan = {4} data = {data}/>
       </div>

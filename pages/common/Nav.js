@@ -14,7 +14,7 @@ export default function Nav(){
         <li className={styles.li}> <Link href='/board/board-list/'>Board</Link></li>
         <li className={styles.li}> <Link href='/game/game-list'>game</Link></li>
         <li className={styles.li}> <Link href='/game/team-list/'>team</Link></li>
-        <li className={styles.li}> <Link href='/user/signup/'>login</Link></li>
+        <li className={styles.li}> <Link href='/user/join/'>login</Link></li>
         <li className={styles.li}> <Link href='/admin/dashboard/'>대시보드</Link></li>
         <li className={styles.li}> <Link href='/board/board-form/'>보드폼</Link></li>
         <li className={styles.li}> <Link href='/user/userlist/'>유저 리스트</Link></li>

@@ -9,15 +9,15 @@ const Table = ({columns, colspan, data}) => {
           <thead>
             <tr className={tablestyles.tr}>
               {columns.map((column) => (
-                <th key = {column} className = {tablestyles.td}>{column}</th>
+                <th key = {column._id} className = {tablestyles.td}>{column}</th>
               ))}
               </tr>
           </thead>
           <tbody>
-              { data.length == 0 ? <tr className={tablestyles.tr}> <td colSpan={colspan} className={tablestyles.td}>데이터가 없습니다.</td>
+              { data.length == 0 ? <tr className={tablestyles.tr}> <td colSpan={colspan} className={tablestyles.td}>데이터가없습니다.</td>
               </tr>
               : data.map((user) => (
-                <tr className = {tablestyles.tr} key = {user.passengerId}>
+                <tr className = {tablestyles.tr} key = {user._id}>
                   <td className={tablestyles.td}>{user.passengerId}</td>
                   <td className={tablestyles.td}>{user.name}</td>
                   <td className={tablestyles.td}>{user.teamId}</td>
@@ -40,7 +40,7 @@ export default function boardlist(){
     }, [])
     return (<>
         <h1>리스트</h1>
-        {count!=0 && <h3>입력수 : {count} 명 </h3>}
+        {count!=0 && <h3>입력수:{count}명</h3>}
         <div className={tablestyles.td}>
         <Table columns={columns} colspan = {4} data = {data}/>
         </div>
