@@ -65,7 +65,7 @@ export default function BoardhtmlForm(){
             </div>
             <br/>
             <div className={style.row}>
-                <input type="submit" className={style.inputSubmit} onClick = {onClick}
+                <input type="submit" className={style.inputSubmit} onChange = {onChange}
                 value="Submit"/>
             </div>
             </form>

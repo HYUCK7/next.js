@@ -19,6 +19,7 @@ export default function Nav(){
         <li className={styles.li}> <Link href='/board/board-form/'>보드폼</Link></li>
         <li className={styles.li}> <Link href='/user/userlist/'>유저 리스트</Link></li>
         <li className={styles.li}> <Link href='/board/boardlist/'>선수 리스트</Link></li>
+        <li className={styles.li}> <Link href='/user/Profile/'>사용자 프로필</Link></li>
       </ul>
     </nav>
   )
