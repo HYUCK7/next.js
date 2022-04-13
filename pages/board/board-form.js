@@ -1,39 +1,47 @@
 import React, { useState } from 'react';
 import style from "./styles/boardForm.module.css"
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import {addTitle} from '../../redux/reducers/board.reducer'
+import { add } from 'lodash';
 
 export default function BoardhtmlForm(){
-    const [inputs, setInputs] = useState({})
+    const [value, setValue] = useState({})
+    const dispatch = useDispatch()
+    
 
-    const onChange = (e) => {
+    /**const onSubmit = (e) => {
         e.preventDefault()
-        const {value, name} = e.target
-        setInputs({ ...inputs, [name]: value})
-    }
-
-    const onSubmit = (e) => {
-        e.preventDefault()
+        if(value) dispatch(addTitle({title: value}))
         alert(`등록할 팀 정보 : ${JSON.stringify(inputs)}`)
             axios.post('http://localhost:5000/api/board/write', inputs) 
             .then(res=> {
                 alert(JSON.stringify( res.data ))
             })
             .catch(err => alert(err))
-    }
+    }*/
 
     return (<>
+        
         <h1>게시글 등록</h1>
         <div className={style.container}>
-            <form action="" onSubmit={onSubmit}>
+            <form onSubmit={e=> {
+                e.preventDefault()
+                alert('title' + value)
+                if(title) dispatch(addTitle({title: value}))
+                }}>
+
             <div className={style.row}>
                 <div className={style.col25}>
-                <label className={style.label} htmlFor="passengerId">PassengerId</label>
+                <label className={style.label} htmlFor="title">글제목</label>
                 </div>
                 <div className={style.col75}>
                 <input type="text" className={style.inputText}
-                id="passengerId" name="passengerId" onChange={onChange}/>
+                id="title" name="title" onChange={e => { e.preventDefault()
+                    setValue(e.target.value)}}/>
                 </div>
             </div>
+            {/** 
             <div className={style.row}>
                 <div className={style.col25}>
                 <label htmlFor="name">Name</label>
@@ -43,6 +51,7 @@ export default function BoardhtmlForm(){
                 id="name" name="name" onChange={onChange}/>
                 </div>
             </div>
+
             <div className={style.row}>
                 <div className={style.col25}>
                 <label htmlFor="team">Team</label>
@@ -55,6 +64,7 @@ export default function BoardhtmlForm(){
                 </select>
                 </div>
             </div>
+
             <div className={style.row}>
                 <div className={style.col25}>
                 <label htmlFor="subject">Subject</label>
@@ -64,11 +74,13 @@ export default function BoardhtmlForm(){
                 </div>
             </div>
             <br/>
+            */}
             <div className={style.row}>
-                <input type="submit" className={style.inputSubmit} onChange = {onChange}
+                <input type="submit" className={style.inputSubmit}
                 value="Submit"/>
             </div>
+            
             </form>
             </div>
-    </>)
-}
+            
+    </>)}
