@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import style from "./styles/boardForm.module.css"
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import {addTitle} from '../../redux/reducers/board.reducer'
+import {addTitle} from '../../redux/reducers/boardReducer.ts'
 import { add } from 'lodash';
 
 export default function BoardhtmlForm(){

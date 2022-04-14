@@ -3,7 +3,7 @@ import { getBindingIdentifiers } from "@babel/types";
 //import './styles/Task.scss'
 import Image from "next/image";
 import {useDispatch} from 'react-redux'
-import {addTask} from '../../redux/reducers/todo.reducer'
+import {addTask} from '../../redux/reducers/todoReducer.ts'
 
 export default function AppTasks() {
 const [value,setValue] = useState('');
