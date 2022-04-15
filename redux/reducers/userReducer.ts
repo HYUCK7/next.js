@@ -11,13 +11,6 @@ export interface UserType{
 
 } 
 
-/*export const UserDataPayload = {
-    id : String,
-    password: String,
-    name: String,
-    tel: String
-}*/
-//state
 export interface UserState{
     loading: boolean
     data: UserType[]

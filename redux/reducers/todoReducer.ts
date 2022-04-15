@@ -1,17 +1,43 @@
+import { red } from "@mui/material/colors";
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = []
+export interface TodoType{
+    userid: string,
+    task: string,
+    completed: string; // value is T , F
+} 
+
+export interface TodoState{
+    loading: boolean
+    data: TodoType[]
+    error: any
+}
+
+const initialState: TodoState = {
+    loading: false,
+    data: [],
+    error: null,
+}
+
 
 const todoSlice = createSlice({
     name: 'todos',
     initialState,
     reducers: {
-        addTask: (state, action) => {
-            alert('리듀서 내부로 들어온 할일은?' + action.payload.task)
-            const todo = {id : new Date(), task: action.payload.task, completed: false}
-            state.push(todo)
+        taskRequest (state: TodoState, payload) {
+            alert('진행 2: Reducer 내부')
+            state.loading = true;
+        },
+        taskSuccess (state: TodoState, {payload}){
+            state.data = [...state.data, payload]
+            state.loading = false;
+        },
+        taskFailure (state: TodoState, {payload}){
+            state.data = payload;
+            state.loading
         }
     }
 })
-export const {addTask} = todoSlice.actions
-export default todoSlice.reducer
+const {reducer, actions} = todoSlice
+export const TodoActions = actions
+export default reducer

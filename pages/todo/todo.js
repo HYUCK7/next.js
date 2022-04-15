@@ -1,31 +1,47 @@
+import { ToolFilled } from "@ant-design/icons";
 import React,{useEffect, useState} from "react";
-import { getBindingIdentifiers } from "@babel/types";
+//import { getBindingIdentifiers } from "@babel/types";
 //import './styles/Task.scss'
-import Image from "next/image";
+//import Image from "next/image";
 import {useDispatch} from 'react-redux'
-import {addTask} from '../../redux/reducers/todoReducer.ts'
+import { TodoActions } from '../../redux/reducers/todoReducer.ts'
 
 export default function AppTasks() {
-const [value,setValue] = useState('');
+const [todo, setTodo] = useState({
+  userid: '', task:'', completed:''
+})
 const dispatch = useDispatch()
+const handleChange = e =>{
+  e.preventDefault()
+  const{name, value} = e.target;
+  setTodo({...todo, [name]: value})
+}
   return (
      <div className="todoapp stack-large">
       <h1>오늘 할일</h1>
       <form onSubmit={ e=> {
         e.preventDefault()
-        alert('value ? ' + value)
-        if(value) dispatch(addTask({task: value}))
+        alert(' 진행 1: 할일 등록');
+        dispatch(TodoActions.taskRequest({todo}))
+        setTodo({
+          userid: '', task: '', completed: ''
+        })
       }}>
-        
+      <label><b> ID </b></label> 
       <input 
         type="text"
         id = "new-todo-input"
         className="input input_lg"
-        name= "text"
+        name= "userid"
         autoComplete="off"
-        onChange={e => {e.preventDefault()
-        setValue(e.target.value)}}/>
-
+        onChange={handleChange}
+      /><br />
+      <label htmlFor=""><b> 할 일 </b></label>
+      <input
+        type="text" name = "task" onChange={handleChange} /><br/>
+      <label htmlFor=""><b>한 일 체크</b></label>
+      <input
+        type="text" name = "completed" onChange={handleChange} />
         {/** 
         <h2 className="label-wrapper">
           <label htmlFor="new-todo-input" className="label__lg">

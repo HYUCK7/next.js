@@ -19,15 +19,18 @@ const Table = ({columns, colspan, data}) => {
           </tr>
           : data.map((user) => (
             <tr className = {tableStyles.tr} key = {user._id}>
-              <td className={tableStyles.td}>
-                <Link href={{pathname:`/user/[id]`,
-                  query:{selectedUser: 'test'}}} as = {`/user/${user.id}`}>
-                  <a>{user.id}</a>
+              <td className={tableStyles.td}>{user.userid}</td>
+                {/**<Link href={{pathname:`/user/[name]`,
+                  query:{selectedUser: 'test'}}} as = {`/user/${user.name}`}>
+                  <a>{user.name}</a>
                 </Link>
-              </td>
-              <td className={tableStyles.td}>{user.password}</td>
+                */}
               <td className={tableStyles.td}>{user.name}</td>
-              <td className={tableStyles.td}>{user.tel}</td>
+              <td className={tableStyles.td}>{user.password}</td>
+              <td className={tableStyles.td}>{user.email}</td>
+              <td className={tableStyles.td}>{user.phone}</td>
+              <td className={tableStyles.td}>{user.birth}</td>
+              <td className={tableStyles.td}>{user.address}</td>
             </tr>
           ))}
       </tbody>
@@ -36,7 +39,7 @@ const Table = ({columns, colspan, data}) => {
   }
 
 export default function UserList(){
-  const columns = ["id", "password", "name", "tel"];
+  const columns = ["userid", "name", "password", "email", "phone", "birth", "address"];
   const [data, setData] = useState([])
   
   useEffect(()=>{
@@ -48,7 +51,7 @@ export default function UserList(){
   return (<>
       <h1>사용자목록</h1>
       <div className={tableStyles.td}>
-      <Table columns={columns} colspan = {4} data = {data}/>
+      <Table columns={columns} colspan = {7} data = {data}/>
       </div>
       </>
 )}
