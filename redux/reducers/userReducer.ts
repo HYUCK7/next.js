@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface JoinPayload{
-    data: {
-        user:{  userid: string,
+export interface UserType{
+                userid: string,
                 name: string,
                 password: string,
                 email: string,
@@ -10,8 +9,6 @@ export interface JoinPayload{
                 birth: string,
                 address: string
 
-        }
-    }
 } 
 
 /*export const UserDataPayload = {
@@ -22,32 +19,38 @@ export interface JoinPayload{
 }*/
 //state
 export interface UserState{
-    userLoading: boolean
-    userData: any
-    error: null
-    token: null
+    loading: boolean
+    data: UserType[]
+    error: any
 }
 
 const initialState: UserState = {
-    userLoading: false,
-    userData: null,
+    loading: false,
+    data: [],
     error: null,
-    token: null
 }
 
 export const userSlice = createSlice({
     name: 'users',
     initialState,
     reducers: {
-        joinRequest(state,action){state.userLoading = true,state.error = null},
-        joinSuccess(state,action){state.userLoading = false,state.error = action.payload},
-        joinFailure(state,action){state.userLoading = false,state.error = action.payload}
+        joinRequest(state: UserState , payload){
+            alert('진행 2: 리듀서 내부')
+            state.loading = true;
+            
+        },
+        joinSuccess(state: UserState , {payload}){
+            state.data = [...state.data, payload]
+            state.loading = false; 
+            
+        },
+        joinFailure(state: UserState , {payload}){
+            state.data = payload;
+            state.loading = false;
+            
+        }
     }
 })
 const {reducer, actions} = userSlice
-
-export const {
-    joinRequest, joinSuccess, joinFailure
-} = actions
-
+export const userActions = actions
 export default reducer
