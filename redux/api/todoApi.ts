@@ -1,4 +1,4 @@
-import axios, { Axios, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 const SERVER = 'http://127.0.0.1:5000'
 const headers = {
     "Content-Type" : "application/json",
@@ -7,7 +7,7 @@ const headers = {
 export interface TodoType{
     userid: string,
     task: string,
-    completed: string; // value is T , F
+    completed: string // value is T , F
 }
 export const postTodo = async (
     payload: {userid: string, task: string, completed: string}) => {
