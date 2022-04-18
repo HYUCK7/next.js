@@ -1,4 +1,3 @@
-import { red } from "@mui/material/colors";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface TodoType{

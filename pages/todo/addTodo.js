@@ -1,12 +1,11 @@
-import { table } from "console";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import tableStyle from '../common/styles/tableStyle.module.css'
+import tableStyle from '../common/styles/table.module.css'
+import { todoActions } from '../../redux/reducers/todoReducer'
 
 export default function AddTodo(){
     const [todo, setTodo] = useState({userid: '', task: '', completed: ''})
     const dispatch = useDispatch()
-
     const handleChange = e => {
         e.preventDefault()
         const {name, value} = e.target;
@@ -14,9 +13,12 @@ export default function AddTodo(){
     }
     return(
         <div className = "todoapp stack-large">
+
         <form onSubmit={ e => {
             e.preventDefault
-            if(inputs) dispatch(addTodo(inputs))
+            alert(' 진행 1: 할일 등록');
+            dispatch(todoActions.taskRequest(todo))
+            setTodo({userid: '', task: '', completed: ''})
         }}>
         <table className={tableStyle.table}>
             <thead>
