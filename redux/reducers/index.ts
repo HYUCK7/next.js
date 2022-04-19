@@ -5,6 +5,7 @@ import articleReducer from './articleReducer'
 import gameReducer from './gameReducer'
 import todoReducer from './todoReducer'
 import userReducer from './userReducer'
+import loginReducer from './loginReducer'
 
 const rootReducer = combineReducers({
     adminReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     articleReducer,
     gameReducer,
     todoReducer,
-    userReducer
+    userReducer,
+    loginReducer
 })
 export default rootReducer
 export type RootState = ReturnType<typeof rootReducer>

@@ -10,7 +10,6 @@ export interface UserType{
                 address: string
 
 } 
-
 export interface UserState{
     loading: boolean
     data: UserType[]
@@ -40,7 +39,18 @@ export const userSlice = createSlice({
         joinFailure(state: UserState , {payload}){
             state.data = payload;
             state.loading = false;
-            
+        },
+        loginRequest(state: UserState, payload){
+            alert('진행 2: 리듀서 내부')
+            state.loading = true;
+        },
+        loginSuccess(state: UserState, {payload}){
+            state.data = payload;
+            state.loading = false;
+        },
+        loginFailure(state: UserState, {payload}){
+            state.data = payload;
+            state.loading = false;
         }
     }
 })

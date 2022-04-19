@@ -14,7 +14,7 @@ export const postArticle = async(
     payload: {title: string, name: string, category: string, subject: string}) =>{
         try{
             const response: AxiosResponse<unknown, ArticleType[]>=
-            await axios.post(`${SERVER}/api/board/write`, payload, { headers })
+            await axios.post(`${SERVER}/api/article/addArticle`, payload, { headers })
             alert(`진행 5: 응답 성공 + ${JSON.stringify(response.data)}`)
             return response.data
         }catch(err){
