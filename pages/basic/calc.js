@@ -2,8 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 export default function Calc() {
     const [inputs, setInputs] = useState({})
-    const [result, setResult] = useState('')
-    const { num1, num2, opcode} = inputs;
+    const { num1, opcode, num2} = inputs;
 
     const onChange = (e) => {
         e.preventDefault()
@@ -13,14 +12,15 @@ export default function Calc() {
 
     const handleSubmit =  (e) => {
         e.preventDefault()
-        axios.post('http://localhost:5000/api/calc/write', inputs)
+        axios.post('http://localhost:5000/basic/calc', inputs)
         .then(res =>{
             const calc = res.data
+            alert(`값 확인 : ${JSON.stringify(calc)}`)
             document.getElementById('result-span').innerHTML = `
             <h3>숫자1: ${calc.num1}</h3>
             <h3>연산기호 : ${calc.opcode}</h3>
             <h3>숫자2: ${calc.num2}</h3>
-            <h3>결과: ${calc.calc}</h3>
+            <h3>결과: ${calc.res}</h3>
             `
         })
         .catch(err=> alert(err))

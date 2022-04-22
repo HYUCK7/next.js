@@ -11,7 +11,7 @@ export default function Home() {
     axios.get("http://localhost:5000/api/now").then((res) => {
       alert(JSON.stringify(res.data))
       var data = res.data;
-      document.getElementById("timeZone").innerHTML = '<h1>현재시간: '+data.now+'<h1>'
+      document.getElementById("timeZone").innerHTML = '<h1>시간: '+data.시간+'<h1>'
     });
   });
   return (<>
@@ -19,7 +19,7 @@ export default function Home() {
     <Button onClick={onClick} />
     <div id="timeZone"></div>
     <body>
-      <Image src={"/user/mm.gif"} width={1100} height={900}/>
+      <Image src={"/user/mm.gif"} width={300} height={300}/>
     </body>
     </>
   )

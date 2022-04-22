@@ -1,48 +1,67 @@
+import React,{useState} from 'react'
 import Link from "next/link";
-import styles from "./styles/Nav.module.css";
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import tableStyles from "../common/styles/table.module.css"
+import MenuItem from '@mui/material/MenuItem';
 
 export default function Nav(){
+  const basicUrls = ["/basic/counter","/basic/calc","/basic/bmi"]
+  const basicSubTitle = ["카운터","계산기","BMI"]
+  const userUrls = ["/user/join","/user/login","/user/logout","/user/profile","/user/updateUser","/user/withdrawUser","/user/getUsers"]
+  const userSubTitle = ["회원가입","로그인","로그아웃","프로필","회원수정","회원탈퇴","회원목록"]
+  const todoUrls = ["/todo/addTodo","/todo/getTodos","/todo/modifyTodo","/todo/removeTodo"]
+  const todoSubTitle = ["할일등록","할일목록","할일수정","할일삭제"]
+  const gameUrls = ["/game/addGame","/game/getGames","/game/modifyGame","/game/removeGame"]
+  const gameSubTitle = ["게임등록","게임목록","게임수정","게임삭제"]
+  //const teamUrls = ["/team/addTeam","/team/getTeams","/team/modifyTeam","/team/removeTeam"]
+  //const teamSubTitle = ["팀등록","팀목록","팀수정","팀삭제"]
+  const boardUrls = ["/board/addArticle","/board/getArticles","/board/modifyArticle","/board/removeArticle"]
+  const boardSubTitle = ["글등록","글목록","글수정","글삭제"]
+  
   return (
-    <nav className={styles.nav}>
-      <ul><button onClick={ () => {
-          history.back('/'); } } >back</button>
-        <li className={styles.li}> <Link href='/'>main</Link> </li>
-        <li className={styles.li}> <Link href='/basic/calc'>Calculator</Link> </li>
-        <li className={styles.li}> <Link href='/basic/counter'>Counter</Link> </li>
-        <li className={styles.li}> <Link href='/basic/bmi'>BMI</Link> </li>
-        <li className={styles.li}> <Link href='/todo/todolist'>스케줄목록</Link></li>
-        <li className={styles.li}> <Link href='/todo/todo'>스케줄등록</Link></li>
-
-        <li className={styles.li}> <Link href='/todo/addTodo'>Todo추가</Link></li>
-        <li className={styles.li}> <Link href='/todo/modifyTodo'>Todo수정</Link></li>
-        <li className={styles.li}> <Link href='/todo/getTodos'>Todo목록</Link></li>
-        <li className={styles.li}> <Link href='/todo/removeTodo'>Todo삭제</Link></li>
-
-        <li className={styles.li}> <Link href='/board/board-list/'>Board</Link></li>
-        <li className={styles.li}> <Link href='/board/addArticle/'>게시글등록</Link></li>
-        <li className={styles.li}> <Link href='/board/getArticles/'>게시글리스트</Link></li>
-        <li className={styles.li}> <Link href='/board/updateArticle/'>게시글수정</Link></li>
-        <li className={styles.li}> <Link href='/board/removeArticle/'>게시글삭제</Link></li>
-
-        <li className={styles.li}> <Link href='/game/game-list'>game</Link></li>
-        <li className={styles.li}> <Link href='/game/addGame'>게임추가</Link></li>
-        <li className={styles.li}> <Link href='/game/getGames'>게임리스트</Link></li>
-        <li className={styles.li}> <Link href='/game/removeGame'>게임삭제</Link></li>
-        <li className={styles.li}> <Link href='/game/updateGame'>게임수정</Link></li>
-
-        <li className={styles.li}> <Link href='/game/team-list/'>team</Link></li>
-        <li className={styles.li}> <Link href='/user/join/'>Join</Link></li>
-        <li className={styles.li}> <Link href='/user/login/'>login</Link></li>
-        <li className={styles.li}> <Link href='/user/logout/'>logout</Link></li>
-        <li className={styles.li}> <Link href='/admin/dashboard/'>대시보드</Link></li>
-        <li className={styles.li}> <Link href='/board/board-form/'>보드폼</Link></li>
-        <li className={styles.li}> <Link href='/user/getUsers/'>유저 리스트</Link></li>
-        <li className={styles.li}> <Link href='/board/boardlist/'>선수 리스트</Link></li>
-        <li className={styles.li}> <Link href='/user/Profile/'>사용자 프로필</Link></li>
-        <li className={styles.li}> <Link href='/user/updateUser/'>사용자 수정</Link></li>
-        <li className={styles.li}> <Link href='/user/withdrawUser/'>회원탈퇴</Link></li>
-
-      </ul>
-    </nav>
-  )
+    <table className={tableStyles.table}>
+      <tr>
+      <td>
+        <SubMenu title={"기본"} urls={basicUrls} subTitles={basicSubTitle}/>
+        <SubMenu title={"사용자"} urls={userUrls} subTitles={userSubTitle}/>
+        <SubMenu title={"투두"} urls={todoUrls} subTitles={todoSubTitle}/>
+        <SubMenu title={"게임"} urls={gameUrls} subTitles={gameSubTitle}/>
+        <SubMenu title={"게시판"} urls={boardUrls} subTitles={boardSubTitle}/>
+        </td>
+      </tr>
+    </table>
+  );
+}
+const SubMenu = (props) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  return <><Button
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+        {props.title}
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+         {props.urls.map(function(url, i){
+            return <MenuItem onClick={handleClose}><Link href={url} key={i}>{props.subTitles[i]}</Link></MenuItem>
+          })}
+      </Menu></>
 }

@@ -30,7 +30,7 @@ export default function getTodos(){
     const [data, setData] = useState([])
 
     useEffect(()=>{
-        axios.get('http://localhost:5000/api/todo/todolist').then(res=>{
+        axios.get('http://localhost:5000/todo/todolist').then(res=>{
             setData(res.data.todos)
         }).catch(err=>{}) }, [])
     return(<>

@@ -1,23 +1,23 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import tableStyles from '../common/styles/table.module.css'
-import { loginActions } from '../../redux/reducers/loginReducer'
+import { userActions } from '../../redux/reducers/userReducer'
 export default function Login(){
-    const [user, setUser] = useState({
+    const [login, setLogin] = useState({
         userid: '', password: ''
     })
     const dispatch = useDispatch()
     const handleChange = (e)=>{
         e.preventDefault
         const {name, value} = e.target
-        setUser({...user, [name]: value})
+        setLogin({...login, [name]: value})
     }
     return <form onSubmit={
         e => {
             e.preventDefault()
-            alert('진행 1: 로그인 진행 ' + JSON.stringify(user))
-            dispatch(loginActions.loginRequest(user))
-            setUser({
+            alert('진행 1: 로그인 진행 ')
+            dispatch(userActions.loginRequest(login))
+            setLogin({
                 userid: '', password: ''
             })
         }

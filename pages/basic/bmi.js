@@ -5,7 +5,7 @@ export default function Bmi() {
     const [inputs, setInputs] = useState({})
     const { name, height, weight } = inputs
     const [result, setResult] = useState(``)
-
+    const PORXY = 'http://localhost:5000'
     const onChange = (e) => {
         e.preventDefault()
         const { value, name } = e.target
@@ -14,9 +14,10 @@ export default function Bmi() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-            axios.post('http://localhost:5000/api/bmi/write', inputs)
+            axios.post(PORXY+'/basic/bmi', inputs)
             .then(res => {
                 const bmi = res.data
+                alert(`값 확인 : ${JSON.stringify(bmi)}`)
                 document.getElementById('result-span').innerHTML = `
                 <h3>이름 : ${bmi.name}</h3>
                 <h3>키 : ${bmi.height} cm</h3>
