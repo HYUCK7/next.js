@@ -1,26 +1,46 @@
 import axios from "axios";
-import React, { useCallback } from 'react';
+import React, { useEffect } from 'react';
 import Image from "next/image";
+import tableStyles from './common/styles/table.module.css'
 
 const Button = ({ onClick }) => (
   <button onClick={onClick}>현재 시간</button>
 );
 
 export default function Home() {
-  const onClick = useCallback(() => {
+  useEffect(() =>{
+  const loginUser = localStorage.getItem("loginUser")
+  if(loginUser === null){
+    axios.get("http://localhost:5000/api/now").then((res) => {
+      var data = res.data
+      document.getElementById("timeZone").innerHTML = '<h1>현재시간 : '+data.시간+'<h1>'
+  })
+}else{
+  const currentUser = JSON.parse(loginUser)
+  document.getElementById("timeZone").innerHTML = '<h1>환영합니다: '+currentUser.user.name+'<h1>'
+}}, [])
+  /**const onClick = useCallback(() => {
     axios.get("http://localhost:5000/api/now").then((res) => {
       alert(JSON.stringify(res.data))
       var data = res.data;
       document.getElementById("timeZone").innerHTML = '<h1>시간: '+data.시간+'<h1>'
     });
-  });
-  return (<>
-    <h1>HOME</h1>
-    <Button onClick={onClick} />
-    <div id="timeZone"></div>
-    <body>
-      <Image src={"/user/mm.gif"} width={300} height={300}/>
-    </body>
-    </>
-  )
+  });*/
+  return (
+    <table className={tableStyles.table}>
+    <thead>
+        <tr>
+            <th><h2>HOME</h2></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>
+            <div id="timeZone"></div></td>
+        </tr>
+        <td>
+        <Image src="/user/mm.gif" width="1000" height="500"></Image>
+        </td>
+    </tbody>
+  </table>)
 }

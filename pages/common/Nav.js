@@ -1,15 +1,26 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import Link from "next/link";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
-import tableStyles from "../common/styles/table.module.css"
+import NavStyles from "../common/styles/Nav.module.css"
 import MenuItem from '@mui/material/MenuItem';
+import Image from "next/image";
 
 export default function Nav(){
   const basicUrls = ["/basic/counter","/basic/calc","/basic/bmi"]
   const basicSubTitle = ["카운터","계산기","BMI"]
-  const userUrls = ["/user/join","/user/login","/user/logout","/user/profile","/user/updateUser","/user/withdrawUser","/user/getUsers"]
-  const userSubTitle = ["회원가입","로그인","로그아웃","프로필","회원수정","회원탈퇴","회원목록"]
+  const [userUrls, setUserUrls] = useState([])
+  const [userSubTitle, setUserSubTitle] = useState([])
+  useEffect(()=> {
+    const loginUser = localStorage.getItem("loginUser")
+    if (loginUser === null){
+      setUserUrls (["/user/join","/user/login"])
+      setUserSubTitle (["회원가입","로그인"])
+    } else {
+      setUserUrls ( ["/user/logout","/user/profile","/user/updateUser","/user/withdrawUser","/user/getUsers"] )
+      setUserSubTitle ( ["로그아웃","프로필","회원수정","회원탈퇴","회원목록"] )
+    }
+  }, [])
   const todoUrls = ["/todo/addTodo","/todo/getTodos","/todo/modifyTodo","/todo/removeTodo"]
   const todoSubTitle = ["할일등록","할일목록","할일수정","할일삭제"]
   const gameUrls = ["/game/addGame","/game/getGames","/game/modifyGame","/game/removeGame"]
@@ -20,9 +31,10 @@ export default function Nav(){
   const boardSubTitle = ["글등록","글목록","글수정","글삭제"]
   
   return (
-    <table className={tableStyles.table}>
-      <tr>
-      <td>
+    <table className={NavStyles.table}>
+      <tr className={NavStyles.tr}>
+      <td className={NavStyles.td}>
+        <a href = {"/"}><Image src="/user/home.png" width="50" height ="50"></Image></a>
         <SubMenu title={"기본"} urls={basicUrls} subTitles={basicSubTitle}/>
         <SubMenu title={"사용자"} urls={userUrls} subTitles={userSubTitle}/>
         <SubMenu title={"투두"} urls={todoUrls} subTitles={todoSubTitle}/>

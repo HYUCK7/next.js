@@ -32,7 +32,9 @@ export const postUser = async (
             try{
                 const response : AxiosResponse<unknown, UserType[]>=
                 await axios.post(`${SERVER}/user/login`, payload, { headers })
+                const loginUser = JSON.stringify(response.data)
                 alert(`진행5 : 응답 성공 + ${JSON.stringify(response.data)}`)
+                localStorage.setItem("loginUser",loginUser)
                 return response.data
             }catch(err){
                 return err;
